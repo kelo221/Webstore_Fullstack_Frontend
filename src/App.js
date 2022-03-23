@@ -23,7 +23,7 @@ const themeLight = createTheme({
         MuiCssBaseline: {
             styleOverrides: {
                 body: {
-                    backgroundColor: "#EAF2D7",
+                    backgroundColor: "#FCDDBC",
                 }
             }
         }

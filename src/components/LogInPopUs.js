@@ -10,7 +10,7 @@ import {Input} from "@mui/material";
 import * as PropTypes from "prop-types";
 import requests from "./services/requests";
 import axios from "axios";
-import {Redirect} from "react-router-dom";
+import {Redirect, useNavigate} from "react-router-dom";
 
 function RaisedButton(props) {
     return null;
@@ -22,6 +22,8 @@ const LogInPopUs = ({areSettingVisible, setSettingsVis}) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+
+    const navigate = useNavigate()
 
     if (!areSettingVisible) {
         return null
@@ -40,15 +42,16 @@ const LogInPopUs = ({areSettingVisible, setSettingsVis}) => {
     }
 
 
-    function navigateToRegister() {
-
+    function navigateToRegister(e) {
+        e.preventDefault()
+        navigate("/register")
     }
 
     return (
         <React.Fragment>
 
 
-            <Box bgcolor="secondary.main" sx={{borderRadius: '16px'}} style={{
+            <Box bgcolor="secondary.main" sx={{borderRadius: '16px'}} boxShadow={3} style={{
                 position: "absolute",
                 width: "25vh",
                 textAlign: "center",
@@ -99,7 +102,7 @@ const LogInPopUs = ({areSettingVisible, setSettingsVis}) => {
                                 <Button size="small" type="submit" variant="text"> Sign in</Button>
                             </Grid>
 
-                            <Button size="small" type="submit" variant="text"  onClick={() => navigateToRegister()}>> Register</Button>
+                            <Button size="small" type="submit" variant="text"  onClick={(e) => navigateToRegister(e)}> Register</Button>
                         </form>
                     </main>
                 </Grid>
