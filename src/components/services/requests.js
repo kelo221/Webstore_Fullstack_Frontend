@@ -66,6 +66,12 @@ const update = (id, newObject) => {
     return request.then(response => response.data)
 }
 
+const register = (id, newObject) => {
+    const request = axios.put(axios.get(`${baseUrl}user/register`))
+    return request.then(response => response.data)
+}
+
+
 const del = (id) => {
     const request = axios.delete(`${baseUrl}/${id}`)
     return request.then(response => response.data)
@@ -79,7 +85,8 @@ const functions = {
     del,
     getUserInfo,
     login,
-    logout
+    logout,
+    register,
 };
 
 export default functions;

@@ -13,8 +13,10 @@ import {Route, Routes, useLocation, useNavigate} from 'react-router-dom'
 
 import {UserContext} from './components/contexts/userContext'
 import AboutPage from "./components/AboutPage";
+import RegisterPage from "./components/RegisterPage";
+import MissingHandler from "./routes/MissingHandler";
 
-//https://coolors.co/6c9a8b-77625c-49392c-eaf2d7-f7b2ad
+//https://coolors.co/b8d8ba-d9dbbc-fcddbc-ef959d-69585f
 const themeLight = createTheme({
 
     components: {
@@ -29,19 +31,19 @@ const themeLight = createTheme({
 
     palette: {
         primary: {
-            main: '#6C9A8B',
+            main: '#EF959D',
         },
         secondary: {
-            main: '#77625C',
+            main: '#E4E3E9',
         },
         common: {
-            main: '#49392C'
+            main: '#B8D8BA'
         },
         background: {
-            main: '#EAF2D7'
+            main: '#FCDDBC'
         },
         action: {
-            main: '#eeeeee'
+            main: '#D9DBBC'
         },
     },
 });
@@ -65,7 +67,7 @@ const themeDark = createTheme({
             main: '#484A4A',
         },
         secondary: {
-            main: '#3B3B3B',
+            main: '#9590A8',
         },
         common: {
             main: '#222120'
@@ -90,9 +92,6 @@ function App() {
 
 
 
-    console.log(userInfo)
-
-
     useEffect(() => {
         requests.getAllProducts("asc", page)
             .then(initialproducts => {
@@ -110,9 +109,12 @@ function App() {
     }, [page, setUserInfo])
 
 
+
     return (
         <ThemeProvider theme={usingLightTheme ? themeLight : themeDark}>
             <Routes location={location} key={location.pathname}>
+
+                <Route path="*" element={<MissingHandler/>} />
 
                 <Route path="/" element={
                     <Box bgcolor="background.main">
@@ -151,6 +153,20 @@ function App() {
                             />
 
                             <AboutPage> </AboutPage>
+
+                        </main>
+                    </Box>
+                }/>
+
+                <Route path="register" element={
+                    <Box bgcolor="background.main">
+                        <CssBaseline/>
+                        <main>
+                            <NavBar
+                                usingLightTheme={usingLightTheme} setCurrentTheme={setTheme}
+                            />
+
+                            <RegisterPage></RegisterPage>
 
                         </main>
                     </Box>

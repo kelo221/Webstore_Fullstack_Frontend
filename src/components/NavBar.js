@@ -17,8 +17,6 @@ import LogInPopUs from "./LogInPopUs";
 import {useLocation, useNavigate} from "react-router-dom";
 import UserButton from "./userButton";
 
-const pages = ['Products', 'About']
-let settings = ['Orders', 'Logout']
 
 
 
@@ -27,12 +25,19 @@ let settings = ['Orders', 'Logout']
 
 const Navbar = ({ usingLightTheme, setCurrentTheme}) => {
 
+    let pages = ['Products', 'About']
+    let settings = ['Orders', 'Logout']
+
+
     const navigate = useNavigate()
 
     const {userInfo, setUserInfo} = useContext(UserContext)
 
+
+
     if (userInfo._Id === null) {
         settings = ['Log in']
+        pages = ['Products', 'About','Register']
     }
 
     const theme = usingLightTheme ? "light" : "dark"
@@ -44,8 +49,10 @@ const Navbar = ({ usingLightTheme, setCurrentTheme}) => {
         console.log("handleOpenNavMenu",page)
         if (page === "Products"){
             navigate("/")
-        }else {
+        }else if (page === "About") {
             navigate("/about")
+        }else {
+            navigate("register")
         }
     }
 
