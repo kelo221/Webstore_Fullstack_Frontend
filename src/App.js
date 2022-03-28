@@ -7,9 +7,9 @@ import {createTheme, ThemeProvider} from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import {useContext, useEffect, useState} from "react";
 import requests from "./components/services/requests";
-import {Pagination, useTheme} from "@mui/material";
+import {Pagination} from "@mui/material";
 
-import {Route, Routes, useLocation, useNavigate} from 'react-router-dom'
+import {Route, Routes, useLocation} from 'react-router-dom'
 
 import {UserContext} from './components/contexts/userContext'
 import AboutPage from "./components/AboutPage";

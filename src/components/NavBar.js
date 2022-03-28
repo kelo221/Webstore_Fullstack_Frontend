@@ -6,9 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
 import {UserContext} from "./contexts/userContext";
 import {useContext, useState} from "react";
 import LogInPopUs from "./LogInPopUs";
@@ -46,13 +44,12 @@ const Navbar = ({ usingLightTheme, setCurrentTheme}) => {
     const [areSettingVisible, setSettingsVis] = useState(false);
 
     const handleOpenNavMenu =(page)=> {
-        console.log("handleOpenNavMenu",page)
         if (page === "Products"){
             navigate("/")
         }else if (page === "About") {
             navigate("/about")
         }else {
-            navigate("register")
+            navigate("/register")
         }
     }
 
