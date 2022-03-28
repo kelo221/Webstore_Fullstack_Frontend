@@ -3,17 +3,17 @@ import Box from "@mui/material/Box";
 import * as React from "react";
 
 
-const RedAlert = ({errorStatus, setErrorStatus}) => {
+const AlertBox = ({alertStatus, setAlertStatus,alertMessage, severity}) => {
 
 
     function close() {
-        setTimeout(() => {setErrorStatus(false)}, 5000)
+        setTimeout(() => {setAlertStatus(false)}, 5000)
     }
 
     const errortext = "test"
 
 
-    if (errorStatus === false) {
+    if (alertStatus === false) {
         return null
     }else {
         close()
@@ -23,22 +23,22 @@ const RedAlert = ({errorStatus, setErrorStatus}) => {
         <React.Fragment>
 
             <Grow
-                in={errorStatus}
+                in={alertStatus}
                 style={{transformOrigin: '0 0 0'}}
-                {...(errorStatus ? {timeout: 1000} : {})}
+                {...(alertStatus ? {timeout: 1000} : {})}
             >
-                <Alert variant="filled" severity="error" style={{
+                <Alert variant="filled" severity={severity} style={{
                     width: "100%",
                     marginLeft: "auto",
                     marginRight: "auto",
                     position: "absolute",
 
                 }}>
-                    {errortext}
+                    {alertMessage}
                 </Alert>
             </Grow>
 
         </React.Fragment>
     )
 }
-export default RedAlert;
+export default AlertBox;

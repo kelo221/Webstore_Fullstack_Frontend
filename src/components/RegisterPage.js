@@ -2,7 +2,7 @@ import axios from "axios";
 import {Button, Grid, TextField} from "@material-ui/core";
 import React, {useState} from "react";
 import Box from "@mui/material/Box";
-import RedAlert from "./alerts/RedAlert";
+import AlertBox from "./alerts/AlertBox";
 
 const RegisterPage = () => {
 
@@ -10,7 +10,10 @@ const RegisterPage = () => {
     const [password, setPassword] = useState('');
     const [password_confirm, setPasswordConfirm] = useState('');
 
-    const [errorStatus, setErrorStatus] = React.useState(false);
+    const [alertStatus, setAlertStatus] = React.useState(false);
+
+    const [alertMessage, setAlertMessage] = useState('');
+    const [severity, setSeverity] = useState('error');
 
     const submit = async (e) => {
         e.preventDefault();
@@ -19,8 +22,15 @@ const RegisterPage = () => {
             email,
             password,
             password_confirm
+        }).then(response => {
+            setAlertMessage(response.data.message)
+            setSeverity("success")
+            setAlertStatus(true)
         }).catch((e) => {
-            setErrorStatus(true)
+            setAlertMessage(e.response.data.message)
+            //console.log(e.response.data.message)
+            setSeverity("error")
+            setAlertStatus(true)
         });
 
     }
@@ -29,9 +39,10 @@ const RegisterPage = () => {
     return (
         <React.Fragment>
 
-            <RedAlert errorStatus={errorStatus} setErrorStatus={setErrorStatus}></RedAlert>
+            <AlertBox alertStatus={alertStatus} setAlertStatus={setAlertStatus} alertMessage={alertMessage}
+                      severity={severity}/>
 
-            <Box bgcolor="secondary.main" >
+            <Box bgcolor="secondary.main">
 
 
                 <Grid container
