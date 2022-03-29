@@ -5,20 +5,17 @@ import {
     Button
 } from '@material-ui/core';
 import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
-import {Input} from "@mui/material";
-import * as PropTypes from "prop-types";
-import requests from "./services/requests";
 import axios from "axios";
-import {Redirect, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import {useAtom} from "jotai";
+import Atoms from "./Atoms/Atoms";
 
-function RaisedButton(props) {
-    return null;
-}
 
-RaisedButton.propTypes = {label: PropTypes.string};
-const LogInPopUs = ({areSettingVisible, setSettingsVis}) => {
+const LogInPopUs = () => {
 
+
+    const [areSettingVisible, setSettingsVis] = useAtom(Atoms.settingsVisibility);
+    //const [userInfo, setUserInfo] = useAtom(Atoms.userInfo);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -29,11 +26,11 @@ const LogInPopUs = ({areSettingVisible, setSettingsVis}) => {
         return null
     }
 
-
+    //TODO why does this not set the new avatar?
     const submit = async (e) => {
         e.preventDefault();
 
-        await axios.post('http://127.0.0.1:8000/api/user/login', {
+        await axios.post('https://127.0.0.1:8000/api/user/login', {
             email,
             password
         }, {withCredentials: true})
@@ -44,6 +41,7 @@ const LogInPopUs = ({areSettingVisible, setSettingsVis}) => {
 
     function navigateToRegister(e) {
         e.preventDefault()
+        setSettingsVis(false)
         navigate("/register")
     }
 

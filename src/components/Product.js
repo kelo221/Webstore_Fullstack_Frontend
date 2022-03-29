@@ -26,7 +26,7 @@ export default function Product({products}) {
                             <CardMedia
                                 component="img"
                                 alt={product.Title}
-                                image={'http://127.0.0.1:8000/' + product.Image}
+                                image={'https://127.0.0.1:8000/' + product.Image}
                                 justify-content="center"
                                 width='20vw'
                                 height='300vh'

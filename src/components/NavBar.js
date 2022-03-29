@@ -7,21 +7,16 @@ import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
-import {UserContext} from "./contexts/userContext";
-import {useContext, useState} from "react";
 import LogInPopUs from "./LogInPopUs";
-
-
-import {useLocation, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import UserButton from "./userButton";
 
+import {useAtom} from "jotai"
+import Atoms from "./Atoms/Atoms";
 
 
 
-
-
-
-const Navbar = ({ usingLightTheme, setCurrentTheme}) => {
+const Navbar = () => {
 
     let pages = ['Products', 'About']
     let settings = ['Orders', 'Logout']
@@ -29,7 +24,9 @@ const Navbar = ({ usingLightTheme, setCurrentTheme}) => {
 
     const navigate = useNavigate()
 
-    const {userInfo, setUserInfo} = useContext(UserContext)
+    const [userInfo, setUserInfo] = useAtom(Atoms.userInfo);
+    const [areSettingVisible, setSettingsVis] = useAtom(Atoms.settingsVisibility);
+    const [usingLightTheme, setCurrentTheme] = useAtom(Atoms.lightTheme);
 
 
 
@@ -41,7 +38,7 @@ const Navbar = ({ usingLightTheme, setCurrentTheme}) => {
     const theme = usingLightTheme ? "light" : "dark"
 
 
-    const [areSettingVisible, setSettingsVis] = useState(false);
+
 
     const handleOpenNavMenu =(page)=> {
         if (page === "Products"){
@@ -106,7 +103,7 @@ const Navbar = ({ usingLightTheme, setCurrentTheme}) => {
 
 
                     <IconButton onClick={() => setCurrentTheme(prev => !prev)}>
-                        <img height="44" src={"http://localhost:8000/img/theme/"+theme+".png"} alt={""}/>
+                        <img height="44" src={"https://localhost:8000/img/theme/"+theme+".png"} alt={""}/>
                     </IconButton>
 
 

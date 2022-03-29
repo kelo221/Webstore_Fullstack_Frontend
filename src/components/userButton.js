@@ -1,24 +1,32 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
 import {Menu, MenuItem} from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import Avatar from "@mui/material/Avatar";
-import {useContext} from "react";
-import {UserContext} from "./contexts/userContext";
-import LogInPopUs from "./LogInPopUs";
-import requests from "./services/requests";
+
+
 import axios from "axios";
-const UserButton = ({areSettingVisible,setSettingsVis}) => {
+
+import {useAtom} from "jotai"
+import Atoms from "./Atoms/Atoms";
+
+
+
+const UserButton = () => {
+
+    const [areSettingVisible, setSettingsVis] = useAtom(Atoms.settingsVisibility);
+    const [userInfo, setUserInfo] = useAtom(Atoms.userInfo);
 
     const STATES = Object.freeze({
         ORDERS: 1,
         LOG_OUT: 2,
     });
 
-    const {userInfo} = useContext(UserContext)
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+
+
+    console.log(userInfo.Avatar)
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -28,7 +36,6 @@ const UserButton = ({areSettingVisible,setSettingsVis}) => {
     const logInButton = (event) => {
         console.log("login")
         setSettingsVis(!areSettingVisible)
-        console.log(areSettingVisible)
     };
 
     const logOut = (event) => {
@@ -36,7 +43,7 @@ const UserButton = ({areSettingVisible,setSettingsVis}) => {
     };
 
     const submit = async () => {
-        await axios.post('http://127.0.0.1:8000/api/user/logout', {
+        await axios.post('https://127.0.0.1:8000/api/user/logout', {
         }, {withCredentials: true})
 
     }
@@ -62,7 +69,7 @@ const UserButton = ({areSettingVisible,setSettingsVis}) => {
                 <div>
                     <Tooltip title="Profile">
                         <IconButton  sx={{p: 0}} onClick={logInButton}>
-                            <Avatar src={"http://127.0.0.1:8000/" + userInfo.Avatar}/>
+                            <Avatar src={"https://127.0.0.1:8000/" + userInfo.Avatar}/>
                         </IconButton>
                     </Tooltip>
                 </div>
@@ -80,7 +87,7 @@ const UserButton = ({areSettingVisible,setSettingsVis}) => {
 
             <Tooltip title="Profile">
                 <IconButton  sx={{p: 0}} onClick={handleClick}>
-                    <Avatar src={"http://127.0.0.1:8000/" + userInfo.Avatar}/>
+                    <Avatar src={"https://127.0.0.1:8000/" + userInfo.Avatar}/>
                 </IconButton>
             </Tooltip>
 

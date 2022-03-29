@@ -18,7 +18,7 @@ const RegisterPage = () => {
     const submit = async (e) => {
         e.preventDefault();
 
-        await axios.post('http://127.0.0.1:8000/api/user/register', {
+        await axios.post('https://127.0.0.1:8000/api/user/register', {
             email,
             password,
             password_confirm

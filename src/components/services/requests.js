@@ -1,14 +1,7 @@
 import axios from 'axios'
 
-const blankUser = {
-    "Email": null,
-    "IsAdmin": false,
-    "_Id": null,
-    "Avatar": "/img/users/noImage.jpg"
-}
-
-const baseUrl = 'http://127.0.0.1:8000/api/'
-const productUrl = 'http://127.0.0.1:8000/api/products/backend'
+const baseUrl = 'https://127.0.0.1:8000/api/'
+const productUrl = 'https://127.0.0.1:8000/api/products/backend'
 
 axios.defaults.crossDomain = true;
 axios.defaults.withCredentials  = true;
@@ -40,7 +33,7 @@ const login = (email, password) => {
 const login = async (e,email,password) => {
     e.preventDefault();
 
-    await axios.post('http://127.0.0.1:8000/api/user/login', {
+    await axios.post('https://127.0.0.1:8000/api/user/login', {
         email,
         password
     }, {withCredentials: true})
