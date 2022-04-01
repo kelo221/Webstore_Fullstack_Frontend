@@ -9,13 +9,14 @@ import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import {useAtom} from "jotai";
 import Atoms from "./Atoms/Atoms";
+import requests from "./services/requests";
 
 
 const LogInPopUs = () => {
 
 
     const [areSettingVisible, setSettingsVis] = useAtom(Atoms.settingsVisibility);
-    //const [userInfo, setUserInfo] = useAtom(Atoms.userInfo);
+    const [userInfo, setUserInfo] = useAtom(Atoms.userInfo);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -26,15 +27,15 @@ const LogInPopUs = () => {
         return null
     }
 
-    //TODO why does this not set the new avatar?
     const submit = async (e) => {
         e.preventDefault();
-
-        await axios.post('https://127.0.0.1:8000/api/user/login', {
-            email,
-            password
-        }, {withCredentials: true})
-
+        requests.Login(email,password).then(r => {
+            requests.getUserInfo()
+                .then(userData => {
+                    if (userData)
+                        setUserInfo(userData)
+                })
+        })
         setSettingsVis(false)
     }
 

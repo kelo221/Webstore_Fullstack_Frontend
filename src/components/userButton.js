@@ -9,6 +9,7 @@ import axios from "axios";
 
 import {useAtom} from "jotai"
 import Atoms from "./Atoms/Atoms";
+import requests from "./services/requests";
 
 
 
@@ -23,10 +24,12 @@ const UserButton = () => {
     });
 
     const [anchorEl, setAnchorEl] = React.useState(null);
+
+
     const open = Boolean(anchorEl);
 
 
-    console.log(userInfo.Avatar)
+
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -40,12 +43,19 @@ const UserButton = () => {
 
     const logOut = (event) => {
         setSettingsVis(!areSettingVisible)
-    };
+        setUserInfo("")
+    }
 
     const submit = async () => {
         await axios.post('https://127.0.0.1:8000/api/user/logout', {
         }, {withCredentials: true})
 
+        setUserInfo({
+            "Email": null,
+            "IsAdmin": false,
+            "_Id": null,
+            "Avatar": "/img/users/noImage.jpg"
+        })
     }
 
 
@@ -57,7 +67,15 @@ const UserButton = () => {
 
         else if (who === STATES.LOG_OUT) {
             console.log("LOG_OUT")
-            submit().then(r => console.log(r))
+            requests.LogOut()
+                .then(r => {
+                    setUserInfo({
+                        "Email": null,
+                        "IsAdmin": false,
+                        "_Id": null,
+                        "Avatar": "/img/users/noImage.jpg"
+                    })
+                })
         }
 
         setAnchorEl(null);
@@ -69,7 +87,7 @@ const UserButton = () => {
                 <div>
                     <Tooltip title="Profile">
                         <IconButton  sx={{p: 0}} onClick={logInButton}>
-                            <Avatar src={"https://127.0.0.1:8000/" + userInfo.Avatar}/>
+                            <Avatar src={"https://127.0.0.1:8000/img/users/noImage.jpg"}/>
                         </IconButton>
                     </Tooltip>
                 </div>
@@ -100,7 +118,7 @@ const UserButton = () => {
                     'aria-labelledby': 'basic-button',
                 }}
             >
-                <MenuItem onClick={() => handleClose(STATES.ORDERS)}>Orders</MenuItem>
+                <MenuItem onClick={() => handleClose(STATES.ORDERS)}>Past Orders</MenuItem>
                 <MenuItem onClick={() => handleClose(STATES.LOG_OUT)}>Logout</MenuItem>
             </Menu>
         </div>

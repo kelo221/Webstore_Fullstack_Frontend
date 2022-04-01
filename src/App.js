@@ -15,7 +15,8 @@ import AboutPage from "./components/AboutPage";
 import RegisterPage from "./components/RegisterPage";
 import MissingHandler from "./routes/MissingHandler";
 
-import {useAtom} from "jotai"
+import {useAtom, atom} from "jotai"
+
 import Atoms from "./components/Atoms/Atoms";
 import Themes from "./themes/Themes"
 
@@ -23,14 +24,15 @@ function App() {
 
     const location = useLocation()
 
-    const [usingLightTheme, setTheme] = useAtom(Atoms.lightTheme);
-    const [products, setProducts] = useAtom(Atoms.products);
-    const [page] = useAtom(Atoms.page);
-    const [userInfo, setUserInfo] = useAtom(Atoms.userInfo);
+    const [usingLightTheme, setTheme]   = useAtom(Atoms.lightTheme);
+    const [products, setProducts]       = useAtom(Atoms.products);
+    const [page]                        = useAtom(Atoms.page);
+    const [userInfo, setUserInfo]       = useAtom(Atoms.userInfo);
 
-
+    console.log(products)
 
     useEffect(() => {
+
         requests.getAllProducts("asc", page)
             .then(initialproducts => {
                 if (initialproducts)
@@ -45,6 +47,7 @@ function App() {
             })
 
     }, [page, setProducts, setUserInfo])
+
 
 
     return (

@@ -13,6 +13,8 @@ import UserButton from "./userButton";
 
 import {useAtom} from "jotai"
 import Atoms from "./Atoms/Atoms";
+import ShoppingCartIcon from "./ShoppingCartIcon";
+
 
 
 
@@ -27,6 +29,7 @@ const Navbar = () => {
     const [userInfo, setUserInfo] = useAtom(Atoms.userInfo);
     const [areSettingVisible, setSettingsVis] = useAtom(Atoms.settingsVisibility);
     const [usingLightTheme, setCurrentTheme] = useAtom(Atoms.lightTheme);
+    const [shoppingCart, updateShoppingCart]   = useAtom(Atoms.shoppingCart);
 
 
 
@@ -52,6 +55,7 @@ const Navbar = () => {
 
     const handleOpenUserMenu=()=> {
         console.log("handleOpenUserMenu")
+        console.log(shoppingCart)
     }
 
 
@@ -100,6 +104,11 @@ const Navbar = () => {
                             </Button>
                         ))}
                     </Box>
+
+                    <IconButton onClick={() => handleOpenUserMenu()}>
+                       <ShoppingCartIcon/>
+                    </IconButton>
+
 
 
                     <IconButton onClick={() => setCurrentTheme(prev => !prev)}>

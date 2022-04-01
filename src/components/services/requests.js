@@ -20,33 +20,24 @@ const getUserInfo = () => {
         return null
     })
 }
-/*
-const login = (email, password) => {
-    const request = axios.post(`${baseUrl}user/login`, {
+
+const Login = async (email,password) => {
+
+    const request =  axios.post(`${baseUrl}user/login`, {
         email,
         password
     }, {withCredentials: true})
     return request.then(response => response.data)
-}*/
-
-//TODO
-const login = async (e,email,password) => {
-    e.preventDefault();
-
-    await axios.post('https://127.0.0.1:8000/api/user/login', {
-        email,
-        password
-    }, {withCredentials: true})
-
 }
 
 
-const logout = () => {
+const LogOut = () => {
+
     const request = axios.post(`${baseUrl}user/logout`, {
     }, {withCredentials: true})
     return request.then(response => response.data)
-}
 
+}
 
 
 const create = newObject => {
@@ -77,9 +68,9 @@ const functions = {
     update,
     del,
     getUserInfo,
-    login,
-    logout,
+    Login,
     register,
+    LogOut,
 };
 
 export default functions;
