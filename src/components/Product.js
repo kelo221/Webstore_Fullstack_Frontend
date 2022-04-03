@@ -26,21 +26,21 @@ export default function Product({products}) {
     const addToCart = (product) => {
         shoppingCart.OrderItem.push(product)
         updateShoppingCart({
-            "TransactionId": null,
-            "UserId": null,
-            "Code": null,
-            "FirstName": null,
-            "LastName": null,
-            "Email": null,
-            "Name": null,
-            "Address": null,
-            "City": null,
-            "Country": null,
-            "Zip": null,
-            "Complete": null,
+            "TransactionId": shoppingCart.TransactionId,
+            "UserId": shoppingCart.UserId,
+            "Code": shoppingCart.Code,
+            "FirstName": shoppingCart.FirstName,
+            "LastName": shoppingCart.LastName,
+            "Email": shoppingCart.Email,
+            "Name": shoppingCart.Name,
+            "Address": shoppingCart.Address,
+            "City": shoppingCart.City,
+            "Country": shoppingCart.Country,
+            "Zip": shoppingCart.Zip,
+            "Complete": shoppingCart.Complete,
             "OrderItem": shoppingCart.OrderItem,
         })
-        //Atoms seem to work bit differently, compared to useState
+        //Atoms seem to work bit differently, compared to useState, TODO: come up with a cleaner solution
 
     }
 

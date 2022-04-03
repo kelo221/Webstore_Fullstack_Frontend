@@ -13,9 +13,9 @@ import UserButton from "./userButton";
 
 import {useAtom} from "jotai"
 import Atoms from "./Atoms/Atoms";
-import ShoppingCartIcon from "./ShoppingCartIcon";
-
-
+import ShoppingCartIcon from "./shoppingCart/ShoppingCartIcon";
+import ShoppingCartButton from "./shoppingCart/ShoppingCartButton";
+import Tooltip from "@mui/material/Tooltip";
 
 
 const Navbar = () => {
@@ -29,33 +29,25 @@ const Navbar = () => {
     const [userInfo, setUserInfo] = useAtom(Atoms.userInfo);
     const [areSettingVisible, setSettingsVis] = useAtom(Atoms.settingsVisibility);
     const [usingLightTheme, setCurrentTheme] = useAtom(Atoms.lightTheme);
-    const [shoppingCart, updateShoppingCart]   = useAtom(Atoms.shoppingCart);
-
+    const [shoppingCart, updateShoppingCart] = useAtom(Atoms.shoppingCart);
 
 
     if (userInfo._Id === null) {
         settings = ['Log in']
-        pages = ['Products', 'About','Register']
+        pages = ['Products', 'About', 'Register']
     }
 
     const theme = usingLightTheme ? "light" : "dark"
 
 
-
-
-    const handleOpenNavMenu =(page)=> {
-        if (page === "Products"){
+    const handleOpenNavMenu = (page) => {
+        if (page === "Products") {
             navigate("/")
-        }else if (page === "About") {
+        } else if (page === "About") {
             navigate("/about")
-        }else {
+        } else {
             navigate("/register")
         }
-    }
-
-    const handleOpenUserMenu=()=> {
-        console.log("handleOpenUserMenu")
-        console.log(shoppingCart)
     }
 
 
@@ -84,8 +76,8 @@ const Navbar = () => {
                         >
                             <MenuIcon/>
                         </IconButton>
-
                     </Box>
+
                     <Typography
                         variant="h6"
                         noWrap
@@ -105,23 +97,22 @@ const Navbar = () => {
                         ))}
                     </Box>
 
-                    <IconButton onClick={() => handleOpenUserMenu()}>
-                       <ShoppingCartIcon/>
-                    </IconButton>
+                    <ShoppingCartButton/>
 
+                    <Tooltip title="Change theme">
+                        <IconButton onClick={() => setCurrentTheme(prev => !prev)}>
+                            <img height="44" src={"https://localhost:8000/img/theme/" + theme + ".png"} alt={""}/>
+                        </IconButton>
+                    </Tooltip>
 
-
-                    <IconButton onClick={() => setCurrentTheme(prev => !prev)}>
-                        <img height="44" src={"https://localhost:8000/img/theme/"+theme+".png"} alt={""}/>
-                    </IconButton>
-
-
-                    <Box sx={{flexGrow: 0}}>
-                        <UserButton areSettingVisible={areSettingVisible} setSettingsVis={setSettingsVis}/>
+                    <Box>
+                        <UserButton/>
                     </Box>
+
                 </Toolbar>
             </Container>
-              <LogInPopUs  areSettingVisible={areSettingVisible} setSettingsVis={setSettingsVis}/>
+
+            <LogInPopUs/>
         </AppBar>
 
 

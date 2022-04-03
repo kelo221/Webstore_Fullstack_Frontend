@@ -4,6 +4,9 @@ const lightTheme = atom(true)
 const products = atom([])
 const page = atom(1)
 const settingsVisibility = atom(false)
+const alertStatus = atom(false)
+const alertMessage = atom('')
+const alertSeverity = atom('')
 
 const userInfo = atom({
     "Email": null,
@@ -35,6 +38,9 @@ const Atoms = {
     userInfo,
     settingsVisibility,
     shoppingCart,
+    alertStatus,
+    alertMessage,
+    alertSeverity,
 }
 
 export default Atoms;

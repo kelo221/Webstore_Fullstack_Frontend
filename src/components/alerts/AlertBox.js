@@ -1,15 +1,22 @@
 import {Alert, Grow} from "@mui/material";
 import * as React from "react";
+import {useState} from "react";
+import {useAtom} from "jotai";
+import Atoms from "../Atoms/Atoms";
 
 
-const AlertBox = ({alertStatus, setAlertStatus,alertMessage, severity}) => {
+const AlertBox = () => {
+
+
+    const [alertMessage, setAlertMessage]  = useAtom(Atoms.alertMessage);
+    const [severity, setSeverity]  = useAtom(Atoms.alertSeverity);
+
+    const [alertStatus, setAlertStatus] = useAtom(Atoms.alertStatus);
 
 
     function close() {
         setTimeout(() => {setAlertStatus(false)}, 5000)
     }
-
-    const errortext = "test"
 
 
     if (alertStatus === false) {

@@ -4,7 +4,7 @@ const baseUrl = 'https://127.0.0.1:8000/api/'
 const productUrl = 'https://127.0.0.1:8000/api/products/backend'
 
 axios.defaults.crossDomain = true;
-axios.defaults.withCredentials  = true;
+axios.defaults.withCredentials = true;
 
 //http://127.0.0.1:8000/api/user/products/backend?s=1921616&sort=asc&page=1
 
@@ -21,9 +21,9 @@ const getUserInfo = () => {
     })
 }
 
-const Login = async (email,password) => {
+const Login = async (email, password) => {
 
-    const request =  axios.post(`${baseUrl}user/login`, {
+    const request = axios.post(`${baseUrl}user/login`, {
         email,
         password
     }, {withCredentials: true})
@@ -33,10 +33,19 @@ const Login = async (email,password) => {
 
 const LogOut = () => {
 
-    const request = axios.post(`${baseUrl}user/logout`, {
-    }, {withCredentials: true})
+    const request = axios.post(`${baseUrl}user/logout`, {}, {withCredentials: true})
     return request.then(response => response.data)
 
+}
+
+const Register = async (email,password,password_confirm) => {
+
+    const request = axios.post(`${baseUrl}user/register`, {
+        email,
+        password,
+        password_confirm
+    }, )
+    return request.then(response => response.data)
 }
 
 
@@ -69,7 +78,7 @@ const functions = {
     del,
     getUserInfo,
     Login,
-    register,
+    Register,
     LogOut,
 };
 

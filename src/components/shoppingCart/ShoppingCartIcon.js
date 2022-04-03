@@ -1,9 +1,10 @@
 import * as React from "react";
-import {useAtom} from "jotai";
-import Atoms from "./Atoms/Atoms";
+import {atom, useAtom} from "jotai";
+import Atoms from "../Atoms/Atoms";
 
 const ShoppingCartIcon = () => {
     const [shoppingCart, updateShoppingCart] = useAtom(Atoms.shoppingCart);
+
 
 
     if (shoppingCart.OrderItem == null){
@@ -12,15 +13,17 @@ const ShoppingCartIcon = () => {
     }
 
 
+
+
     return (
         <>
             <div className="container">
                 <p style={{
                     position: "absolute",
-                    top: "15%",
+                    top: "5%",
                     left: "50%",
                     transform: "translate(-50%, -50%)",
-                    textShadow: "0 0 2px white",
+                    color: "white",
                 }}>{shoppingCart.OrderItem.length}</p>
                 <img height="40" src={"https://localhost:8000/img/etc/shoppingCart.png"} alt={""}/>
             </div>

@@ -15,7 +15,7 @@ import AboutPage from "./components/AboutPage";
 import RegisterPage from "./components/RegisterPage";
 import MissingHandler from "./routes/MissingHandler";
 
-import {useAtom, atom} from "jotai"
+import {useAtom} from "jotai"
 
 import Atoms from "./components/Atoms/Atoms";
 import Themes from "./themes/Themes"
@@ -29,7 +29,6 @@ function App() {
     const [page]                        = useAtom(Atoms.page);
     const [userInfo, setUserInfo]       = useAtom(Atoms.userInfo);
 
-    console.log(products)
 
     useEffect(() => {
 

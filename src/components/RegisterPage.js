@@ -3,6 +3,9 @@ import {Button, Grid, TextField} from "@material-ui/core";
 import React, {useState} from "react";
 import Box from "@mui/material/Box";
 import AlertBox from "./alerts/AlertBox";
+import requests from "./services/requests";
+import {atom, useAtom} from "jotai";
+import Atoms from "./Atoms/Atoms";
 
 const RegisterPage = () => {
 
@@ -10,28 +13,26 @@ const RegisterPage = () => {
     const [password, setPassword] = useState('');
     const [password_confirm, setPasswordConfirm] = useState('');
 
-    const [alertStatus, setAlertStatus] = React.useState(false);
+    const [alertMessage, setAlertMessage]  = useAtom(Atoms.alertMessage);
+    const [severity, setSeverity]  = useAtom(Atoms.alertSeverity);
+    const [alertStatus, setAlertStatus] = useAtom(Atoms.alertStatus);
 
-    const [alertMessage, setAlertMessage] = useState('');
-    const [severity, setSeverity] = useState('error');
+
 
     const submit = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
-        await axios.post('https://127.0.0.1:8000/api/user/register', {
-            email,
-            password,
-            password_confirm
-        }).then(response => {
-            setAlertMessage(response.data.message)
+        requests.Register(email,password,password_confirm).then(response => {
+            console.log(response)
             setSeverity("success")
             setAlertStatus(true)
+            setAlertMessage(response.message)
         }).catch((e) => {
-            setAlertMessage(e.response.data.message)
-            //console.log(e.response.data.message)
+            console.log(e.response.data.message)
             setSeverity("error")
             setAlertStatus(true)
-        });
+            setAlertMessage(e.response.data.message)
+        })
 
     }
 
@@ -39,8 +40,7 @@ const RegisterPage = () => {
     return (
         <React.Fragment>
 
-            <AlertBox alertStatus={alertStatus} setAlertStatus={setAlertStatus} alertMessage={alertMessage}
-                      severity={severity}/>
+            <AlertBox/>
 
             <Box bgcolor="secondary.main">
 

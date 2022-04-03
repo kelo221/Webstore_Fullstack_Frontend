@@ -10,6 +10,8 @@ import {useNavigate} from "react-router-dom";
 import {useAtom} from "jotai";
 import Atoms from "./Atoms/Atoms";
 import requests from "./services/requests";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from '@mui/icons-material/Close';
 
 
 const LogInPopUs = () => {
@@ -21,6 +23,10 @@ const LogInPopUs = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const [alertMessage, setAlertMessage]  = useAtom(Atoms.alertMessage);
+    const [severity, setSeverity]  = useAtom(Atoms.alertSeverity);
+    const [alertStatus, setAlertStatus] = useAtom(Atoms.alertStatus);
+
     const navigate = useNavigate()
 
     if (!areSettingVisible) {
@@ -28,15 +34,27 @@ const LogInPopUs = () => {
     }
 
     const submit = async (e) => {
-        e.preventDefault();
-        requests.Login(email,password).then(r => {
+        e.preventDefault()
+        requests.Login(email,password).then(response => {
+
+            console.log(response)
+            setSeverity("success")
+            setAlertStatus(true)
+            setAlertMessage(response.message)
+
             requests.getUserInfo()
                 .then(userData => {
                     if (userData)
                         setUserInfo(userData)
                 })
+            setSettingsVis(false)
+        }).catch((e) => {
+            console.log(e.response.data.message)
+            setSeverity("error")
+            setAlertStatus(true)
+            setAlertMessage(e.response.data.message)
         })
-        setSettingsVis(false)
+
     }
 
 
@@ -68,6 +86,9 @@ const LogInPopUs = () => {
                 zIndex: 2,
             }}>
 
+                <IconButton aria-label="delete" style={{ left: "45%"}} onClick={() => setSettingsVis(false)}>
+                    <CloseIcon />
+                </IconButton>
 
                 <Grid container
                       spacing={0}
@@ -105,29 +126,6 @@ const LogInPopUs = () => {
                         </form>
                     </main>
                 </Grid>
-
-                {/*
-
-              <main className="form-signin">
-                    <form onSubmit={submit}>
-                        <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
-                        <div className="form-floating">
-                            <input type="text" className="form-control" id="floatingInput" placeholder="name@example.com"
-                                   onChange={e => setEmail(e.target.value)}
-                            />
-                            <label htmlFor="floatingInput">Email address</label>
-                        </div>
-                        <div className="form-floating">
-                            <input type="password" className="form-control" id="floatingPassword" placeholder="Password"
-                                   onChange={e => setPassword(e.target.value)}
-                            />
-                            <label htmlFor="floatingPassword">Password</label>
-                        </div>
-                        <button className="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-                    </form>
-                </main>
-
-                */}
 
 
             </Box>
