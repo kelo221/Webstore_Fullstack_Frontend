@@ -30,40 +30,19 @@ const ShoppingCartButton = () => {
                 </IconButton>
             </Tooltip>
             <Menu
-                id="basic-menu"
+                id="simple-menu"
                 anchorEl={anchorEl}
-                open={open}
+                keepMounted
+                open={Boolean(anchorEl)}
                 onClose={handleClose}
-                MenuListProps={{
-                    'aria-labelledby': 'basic-button',
-                }}
+                anchorOrigin={{vertical: 'bottom', horizontal: 'center'}}
+                transformOrigin={{vertical: 'top', horizontal: 'center'}}
             >
                 <ShoppingCartItem/>
 
             </Menu>
         </div>
 
-      /*  <div>
-
-            <Tooltip title="Show orders">
-                <IconButton onClick={() => handleOpenUserMenu()}>
-                    <ShoppingCartIcon/>
-                </IconButton>
-            </Tooltip>
-
-
-            <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                MenuListProps={{
-                    'aria-labelledby': 'basic-button',
-                }}
-            >
-                <MenuItem >Past Orders</MenuItem>
-                <MenuItem >Logout</MenuItem>
-            </Menu>
-        </div>*/
 )
 }
 
