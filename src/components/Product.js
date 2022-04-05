@@ -23,6 +23,7 @@ export default function Product({products}) {
         console.log(product)
     }
 
+    //https://codesandbox.io/s/quizzical-herschel-4j4xx?file=%2Fsrc%2FApp.js%3A150-192
     const addToCart = (product) => {
         shoppingCart.OrderItem.push(product)
         updateShoppingCart({
