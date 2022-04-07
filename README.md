@@ -1,6 +1,4 @@
 https://github.com/kelo221/WebStore_Fullstack
 
-![image](https://user-images.githubusercontent.com/61495413/160718563-89569886-d838-4e22-a708-cd29b94a4e2d.png)
-![image](https://user-images.githubusercontent.com/61495413/160718672-059b3730-3e28-4a2e-8d0a-7fedd518bed9.png)
-
-
+![image](https://user-images.githubusercontent.com/61495413/162255201-12c96ded-6bb4-4e4f-836b-682cb534d8bc.png)
+![image](https://user-images.githubusercontent.com/61495413/162255135-ab4c8d3b-90c4-4b68-bad6-f08e2c815800.png)
