@@ -1,13 +1,13 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import UserButton from "./userButton";
+import Box from "@mui/material/Box";
 
-const AboutPage = () => {
-return (
+const RegisterPageAlt = () => {
 
+
+
+return(
     <React.Fragment >
-
         <Typography component="div">
             <Box sx={{ textAlign: 'center', m: 10 }} bgcolor="action.main">
                 <h1>About</h1>
@@ -19,4 +19,4 @@ return (
 )
 }
 
-export default AboutPage;
+export default RegisterPageAlt;

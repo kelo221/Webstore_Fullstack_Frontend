@@ -11,74 +11,55 @@ import {Pagination} from "@mui/material";
 
 import {Route, Routes, useLocation} from 'react-router-dom'
 
-import AboutPage from "./components/AboutPage";
-import RegisterPage from "./components/RegisterPage";
+import AboutPage from "./routes/AboutPage";
+import RegisterPage from "./routes/RegisterPage";
 import MissingHandler from "./routes/MissingHandler";
-
-import {useAtom} from "jotai"
-
-import Atoms from "./components/Atoms/Atoms";
+import Store from "./components/Store/Store"
 import Themes from "./themes/Themes"
+import {useSnapshot} from "valtio";
+import AlertBox from "./components/alerts/AlertBox";
+import ProductsPage from "./routes/ProductsPage";
+import RegisterPageAlt from "./routes/RegisterPageAlt";
 
 function App() {
 
     const location = useLocation()
 
-    const [usingLightTheme, setTheme]   = useAtom(Atoms.lightTheme);
+/*  const [usingLightTheme, setTheme]   = useAtom(Atoms.lightTheme);
     const [products, setProducts]       = useAtom(Atoms.products);
     const [page]                        = useAtom(Atoms.page);
-    const [userInfo, setUserInfo]       = useAtom(Atoms.userInfo);
+    const [userInfo, setUserInfo]       = useAtom(Atoms.userInfo);*/
+
+    const snap = useSnapshot(Store)
 
 
     useEffect(() => {
 
-        requests.getAllProducts("asc", page)
+        requests.getAllProducts("asc", snap.page)
             .then(initialproducts => {
                 if (initialproducts)
-                    setProducts(initialproducts);
+                    Store.products = (initialproducts);
             })
 
+    }, [snap.page])
 
+    useEffect( () =>{
         requests.getUserInfo()
             .then(userData => {
                 if (userData)
-                    setUserInfo(userData)
+                    Store.userInfo = (userData)
             })
 
-    }, [page, setProducts, setUserInfo])
-
-
+    }, [snap.userInfo])
 
     return (
-        <ThemeProvider theme={usingLightTheme ? Themes.ThemeLight : Themes.ThemeDark}>
+        <ThemeProvider theme={snap.lightTheme ? Themes.ThemeLight : Themes.ThemeDark}>
             <Routes location={location} key={location.pathname}>
 
                 <Route path="*" element={<MissingHandler/>}/>
 
                 <Route path="/" element={
-                    <Box bgcolor="background.main">
-                        <CssBaseline/>
-                        <main>
-                            <NavBar/>
-
-                            <Product products={products.data}/>
-
-                            <Box my={2} display="flex" justifyContent="center">
-                                <Pagination count={products.last_page} hidePrevButton hideNextButton
-                                            onChange={(e) => {
-                                                requests
-                                                    .getAllProducts("asc", e.target.textContent)
-                                                    .then(initialProducts => {
-                                                        if (initialProducts)
-                                                            setProducts(initialProducts);
-                                                    })
-                                            }}
-                                />
-                            </Box>
-                        </main>
-
-                    </Box>
-
+                   <ProductsPage/>
                 }/>
 
                 <Route path="about" element={
@@ -86,9 +67,8 @@ function App() {
                         <CssBaseline/>
                         <main>
                             <NavBar/>
-
-                            <AboutPage> </AboutPage>
-
+                            <AlertBox/>
+                            <AboutPage/>
                         </main>
                     </Box>
                 }/>
@@ -98,9 +78,8 @@ function App() {
                         <CssBaseline/>
                         <main>
                             <NavBar/>
-
+                            <AlertBox/>
                             <RegisterPage/>
-
                         </main>
                     </Box>
                 }/>

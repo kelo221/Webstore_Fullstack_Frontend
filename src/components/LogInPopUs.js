@@ -5,54 +5,46 @@ import {
     Button
 } from '@material-ui/core';
 import Box from "@mui/material/Box";
-import axios from "axios";
 import {useNavigate} from "react-router-dom";
-import {useAtom} from "jotai";
-import Atoms from "./Atoms/Atoms";
 import requests from "./services/requests";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from '@mui/icons-material/Close';
+import {useSnapshot} from "valtio";
+import Store from "./Store/Store";
 
 
 const LogInPopUs = () => {
 
-
-    const [areSettingVisible, setSettingsVis] = useAtom(Atoms.settingsVisibility);
-    const [userInfo, setUserInfo] = useAtom(Atoms.userInfo);
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
-    const [alertMessage, setAlertMessage]  = useAtom(Atoms.alertMessage);
-    const [severity, setSeverity]  = useAtom(Atoms.alertSeverity);
-    const [alertStatus, setAlertStatus] = useAtom(Atoms.alertStatus);
+    const snap = useSnapshot(Store)
 
     const navigate = useNavigate()
 
-    if (!areSettingVisible) {
+    if (!snap.settingsVisibility) {
         return null
     }
 
     const submit = async (e) => {
         e.preventDefault()
-        requests.Login(email,password).then(response => {
+        requests.Login(email, password).then(response => {
 
             console.log(response)
-            setSeverity("success")
-            setAlertStatus(true)
-            setAlertMessage(response.message)
+            Store.alertSeverity = "success"
+            Store.alertStatus = true
+            Store.alertMessage = (response.message)
 
             requests.getUserInfo()
                 .then(userData => {
                     if (userData)
-                        setUserInfo(userData)
+                        Store.userInfo = (userData)
                 })
-            setSettingsVis(false)
+            Store.settingsVisibility = false
         }).catch((e) => {
             console.log(e.response.data.message)
-            setSeverity("error")
-            setAlertStatus(true)
-            setAlertMessage(e.response.data.message)
+            Store.alertSeverity = "error"
+            Store.alertStatus = true
+            Store.alertMessage = (e.response.data.message)
         })
 
     }
@@ -60,7 +52,7 @@ const LogInPopUs = () => {
 
     function navigateToRegister(e) {
         e.preventDefault()
-        setSettingsVis(false)
+        Store.settingsVisibility = false
         navigate("/register")
     }
 
@@ -77,7 +69,7 @@ const LogInPopUs = () => {
                 minHeight: "200px",
 
 
-                top:  200,
+                top: 200,
                 left: 0,
                 right: 0,
                 marginLeft: "auto",
@@ -86,8 +78,8 @@ const LogInPopUs = () => {
                 zIndex: 2,
             }}>
 
-                <IconButton aria-label="delete" style={{ left: "45%"}} onClick={() => setSettingsVis(false)}>
-                    <CloseIcon />
+                <IconButton aria-label="delete" style={{left: "45%"}} onClick={() => Store.settingsVisibility = false}>
+                    <CloseIcon/>
                 </IconButton>
 
                 <Grid container
@@ -114,15 +106,17 @@ const LogInPopUs = () => {
                                     name="password"
                                     fullWidth
                                     onChange={e => setPassword(e.target.value)}
+                                    style={{padding:"4px"}}
                                 />
                             </Grid>
 
-                            <Grid  item xl={"auto"} md={"auto"} sm={"auto"} xs={"auto"} >
-
-                                <Button size="small" type="submit" variant="text"> Sign in</Button>
+                            <Grid item xl={"auto"} md={"auto"} sm={"auto"} xs={"auto"}>
+                                <button type="submit"> Sign in</button>
                             </Grid>
 
-                            <Button size="small" type="submit" variant="text"  onClick={(e) => navigateToRegister(e)}> Register</Button>
+                            <Grid item xl={"auto"} md={"auto"} sm={"auto"} xs={"auto"}>
+                                <button type="submit" onClick={(e) => navigateToRegister(e)}> Register</button>
+                            </Grid>
                         </form>
                     </main>
                 </Grid>

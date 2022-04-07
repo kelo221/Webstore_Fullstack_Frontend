@@ -1,22 +1,17 @@
-import axios from "axios";
 import {Button, Grid, TextField} from "@material-ui/core";
 import React, {useState} from "react";
 import Box from "@mui/material/Box";
-import AlertBox from "./alerts/AlertBox";
-import requests from "./services/requests";
-import {atom, useAtom} from "jotai";
-import Atoms from "./Atoms/Atoms";
+import AlertBox from "../components/alerts/AlertBox";
+import requests from "../components/services/requests";
+import Store from "../components/Store/Store";
+import {useSnapshot} from "valtio";
 
 const RegisterPage = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [password_confirm, setPasswordConfirm] = useState('');
-
-    const [alertMessage, setAlertMessage]  = useAtom(Atoms.alertMessage);
-    const [severity, setSeverity]  = useAtom(Atoms.alertSeverity);
-    const [alertStatus, setAlertStatus] = useAtom(Atoms.alertStatus);
-
+    const snap = useSnapshot(Store)
 
 
     const submit = async (e) => {
@@ -24,14 +19,14 @@ const RegisterPage = () => {
 
         requests.Register(email,password,password_confirm).then(response => {
             console.log(response)
-            setSeverity("success")
-            setAlertStatus(true)
-            setAlertMessage(response.message)
+            Store.alertSeverity = "success"
+            Store.alertStatus = true
+            Store.alertMessage = response.message
         }).catch((e) => {
             console.log(e.response.data.message)
-            setSeverity("error")
-            setAlertStatus(true)
-            setAlertMessage(e.response.data.message)
+            Store.alertSeverity = "error"
+            Store.alertStatus = true
+            Store.alertMessage = e.response.data.message
         })
 
     }
@@ -40,9 +35,11 @@ const RegisterPage = () => {
     return (
         <React.Fragment>
 
-            <AlertBox/>
 
-            <Box bgcolor="secondary.main">
+            <Box bgcolor="secondary.main" style={{
+                textAlign: "center",
+                justifyContent: "center",
+            }}>
 
 
                 <Grid container
@@ -84,11 +81,19 @@ const RegisterPage = () => {
 
                             </Grid>
 
-                            <Button size="small" type="submit" variant="text" onClick={(e) => submit(e)}>
-                                Register</Button>
+
+                                <button type="submit"   onClick={(e) => submit(e)}>
+                                    Register</button>
+
+
+
+
                         </form>
                     </main>
                 </Grid>
+
+
+
 
             </Box>
         </React.Fragment>

@@ -1,16 +1,13 @@
-
 import * as React from "react";
-import {useAtom} from "jotai";
-import Atoms from "../Atoms/Atoms";
-import {Menu, MenuItem, Tooltip} from "@mui/material";
-import Button from "@mui/material/Button";
+import {Menu, Tooltip} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import ShoppingCartIcon from "./ShoppingCartIcon";
 import ShoppingCartItem from "./ShoppingCartItem";
 
+
 const ShoppingCartButton = () => {
 
-    const [shoppingCart, updateShoppingCart] = useAtom(Atoms.shoppingCart);
+
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);

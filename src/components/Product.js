@@ -7,13 +7,18 @@ import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import * as React from "react";
-import {useAtom} from "jotai";
-import Atoms from "./Atoms/Atoms";
+import {useSnapshot} from "valtio";
+import Store from "./Store/Store";
+
 
 
 export default function Product({products}) {
 
+/*
     const [shoppingCart, updateShoppingCart]   = useAtom(Atoms.shoppingCart);
+*/
+
+    const snap = useSnapshot(Store)
 
     if (products === undefined) {
         return null
@@ -25,23 +30,12 @@ export default function Product({products}) {
 
     //https://codesandbox.io/s/quizzical-herschel-4j4xx?file=%2Fsrc%2FApp.js%3A150-192
     const addToCart = (product) => {
-        shoppingCart.OrderItem.push(product)
-        updateShoppingCart({
-            "TransactionId": shoppingCart.TransactionId,
-            "UserId": shoppingCart.UserId,
-            "Code": shoppingCart.Code,
-            "FirstName": shoppingCart.FirstName,
-            "LastName": shoppingCart.LastName,
-            "Email": shoppingCart.Email,
-            "Name": shoppingCart.Name,
-            "Address": shoppingCart.Address,
-            "City": shoppingCart.City,
-            "Country": shoppingCart.Country,
-            "Zip": shoppingCart.Zip,
-            "Complete": shoppingCart.Complete,
-            "OrderItem": shoppingCart.OrderItem,
-        })
-        //Atoms seem to work bit differently, compared to useState, TODO: come up with a cleaner solution
+
+
+       // shoppingCart.OrderItem.push(product)
+
+        Store.shoppingCart.OrderItem.push(product)
+        console.log(snap.shoppingCart)
 
     }
 

@@ -3,25 +3,14 @@ import {Menu, MenuItem} from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import Avatar from "@mui/material/Avatar";
-
-
-import axios from "axios";
-
-import {useAtom} from "jotai"
-import Atoms from "./Atoms/Atoms";
 import requests from "./services/requests";
-
+import {useSnapshot} from "valtio";
+import Store from "./Store/Store";
 
 
 const UserButton = () => {
 
-    const [areSettingVisible, setSettingsVis] = useAtom(Atoms.settingsVisibility);
-    const [userInfo, setUserInfo] = useAtom(Atoms.userInfo);
-
-    const [alertMessage, setAlertMessage]  = useAtom(Atoms.alertMessage);
-    const [severity, setSeverity]  = useAtom(Atoms.alertSeverity);
-    const [alertStatus, setAlertStatus] = useAtom(Atoms.alertStatus);
-
+    const snap = useSnapshot(Store)
 
     const STATES = Object.freeze({
         ORDERS: 1,
@@ -41,48 +30,41 @@ const UserButton = () => {
 
         if (who === STATES.ORDERS) {
             console.log("orders")
-        }
-
-        else if (who === STATES.LOG_OUT) {
+        } else if (who === STATES.LOG_OUT) {
             console.log("LOG_OUT")
             requests.LogOut()
                 .then(r => {
-                    setUserInfo({
+                    Store.setUserInfo = ({
                         "Email": null,
                         "IsAdmin": false,
                         "_Id": null,
                         "Avatar": "/img/users/noImage.jpg"
                     })
-                }).then(response => {
-
-                console.log(response)
-                setSeverity("success")
-                setAlertStatus(true)
-                setAlertMessage(response.message)
-
-                requests.getUserInfo()
-                    .then(userData => {
-                        if (userData)
-                            setUserInfo(userData)
-                    })
-                setSettingsVis(false)
-            }).catch((e) => {
-                console.log(e.response.data.message)
-                setSeverity("error")
-                setAlertStatus(true)
-                setAlertMessage(e.response.data.message)
-            })
+                    console.log(r.message)
+                    Store.alertSeverity = "success"
+                    Store.alertStatus = true
+                    Store.alertMessage = r.message
+                })
+                .catch((e) => {
+                    console.log(e)
+                    Store.alertSeverity = "error"
+                    Store.alertStatus = true
+                    Store.alertMessage = e.response.data.message
+                })
         }
 
         setAnchorEl(null);
     }
 
-    if (userInfo._Id===null){
+    if (snap.userInfo._Id === null) {
         return (
-            <React.Fragment >
+            <React.Fragment>
                 <div>
                     <Tooltip title="Profile">
-                        <IconButton  sx={{p: 0}} onClick={()=> setSettingsVis(!areSettingVisible)}>
+                        <IconButton sx={{p: 0}} onClick={() => {
+                            Store.settingsVisibility = (!snap.settingsVisibility)
+                        }
+                        }>
                             <Avatar src={"https://127.0.0.1:8000/img/users/noImage.jpg"}/>
                         </IconButton>
                     </Tooltip>
@@ -92,34 +74,31 @@ const UserButton = () => {
     }
 
 
+    return (
+        <React.Fragment>
+            <div>
+                <Tooltip title="Profile">
+                    <IconButton sx={{p: 0}} onClick={handleClick}>
+                        <Avatar src={"https://127.0.0.1:8000/" + snap.userInfo.Avatar}/>
+                    </IconButton>
+                </Tooltip>
 
-    return(
-    <React.Fragment >
-
-        <div>
-
-            <Tooltip title="Profile">
-                <IconButton  sx={{p: 0}} onClick={handleClick}>
-                    <Avatar src={"https://127.0.0.1:8000/" + userInfo.Avatar}/>
-                </IconButton>
-            </Tooltip>
-
-            <Menu
-                id="basic-menu"
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                MenuListProps={{
-                    'aria-labelledby': 'basic-button',
-                }}
-            >
-                <MenuItem onClick={() => handleClose(STATES.ORDERS)}>Past Orders</MenuItem>
-                <MenuItem onClick={() => handleClose(STATES.LOG_OUT)}>Logout</MenuItem>
-            </Menu>
-        </div>
+                <Menu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    MenuListProps={{
+                        'aria-labelledby': 'basic-button',
+                    }}
+                >
+                    <MenuItem onClick={() => handleClose(STATES.ORDERS)}>Past Orders</MenuItem>
+                    <MenuItem onClick={() => handleClose(STATES.LOG_OUT)}>Logout</MenuItem>
+                </Menu>
+            </div>
 
 
-    </React.Fragment>
+        </React.Fragment>
     )
 }
 

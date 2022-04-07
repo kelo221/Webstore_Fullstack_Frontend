@@ -1,25 +1,23 @@
 import {Alert, Grow} from "@mui/material";
 import * as React from "react";
-import {useState} from "react";
-import {useAtom} from "jotai";
-import Atoms from "../Atoms/Atoms";
+import {useSnapshot} from "valtio";
+import Store from "../Store/Store";
 
 
 const AlertBox = () => {
 
 
-    const [alertMessage, setAlertMessage]  = useAtom(Atoms.alertMessage);
-    const [severity, setSeverity]  = useAtom(Atoms.alertSeverity);
 
-    const [alertStatus, setAlertStatus] = useAtom(Atoms.alertStatus);
-
+    const snap = useSnapshot(Store)
 
     function close() {
-        setTimeout(() => {setAlertStatus(false)}, 5000)
+        setTimeout(() => {Store.alertStatus = false}, 5000)
     }
 
 
-    if (alertStatus === false) {
+
+
+    if (snap.alertStatus === false) {
         return null
     }else {
         close()
@@ -29,18 +27,18 @@ const AlertBox = () => {
         <React.Fragment>
 
             <Grow
-                in={alertStatus}
+                in={snap.alertStatus}
                 style={{transformOrigin: '0 0 0'}}
-                {...(alertStatus ? {timeout: 1000} : {})}
+                {...(snap.alertStatus ? {timeout: 1000} : {})}
             >
-                <Alert variant="filled" severity={severity} style={{
+                <Alert variant="filled" severity={snap.alertSeverity} style={{
                     width: "100%",
                     marginLeft: "auto",
                     marginRight: "auto",
                     position: "absolute",
 
                 }}>
-                    {alertMessage}
+                    {snap.alertMessage}
                 </Alert>
             </Grow>
 

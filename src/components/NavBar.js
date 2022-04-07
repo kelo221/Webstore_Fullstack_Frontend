@@ -11,11 +11,10 @@ import LogInPopUs from "./LogInPopUs";
 import {useNavigate} from "react-router-dom";
 import UserButton from "./userButton";
 
-import {useAtom} from "jotai"
-import Atoms from "./Atoms/Atoms";
-import ShoppingCartIcon from "./shoppingCart/ShoppingCartIcon";
 import ShoppingCartButton from "./shoppingCart/ShoppingCartButton";
 import Tooltip from "@mui/material/Tooltip";
+import {useSnapshot} from "valtio";
+import Store from "./Store/Store";
 
 
 const Navbar = () => {
@@ -26,18 +25,18 @@ const Navbar = () => {
 
     const navigate = useNavigate()
 
-    const [userInfo, setUserInfo] = useAtom(Atoms.userInfo);
-    const [areSettingVisible, setSettingsVis] = useAtom(Atoms.settingsVisibility);
-    const [usingLightTheme, setCurrentTheme] = useAtom(Atoms.lightTheme);
-    const [shoppingCart, updateShoppingCart] = useAtom(Atoms.shoppingCart);
 
+    const snap = useSnapshot(Store)
 
-    if (userInfo._Id === null) {
+    if (snap.userInfo._Id === null) {
         settings = ['Log in']
         pages = ['Products', 'About', 'Register']
     }
 
-    const theme = usingLightTheme ? "light" : "dark"
+
+
+
+    const theme = snap.lightTheme ? "light" : "dark"
 
 
     const handleOpenNavMenu = (page) => {
@@ -52,6 +51,8 @@ const Navbar = () => {
 
 
     return (
+        <React.Fragment>
+            <LogInPopUs/>
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
@@ -100,7 +101,7 @@ const Navbar = () => {
                     <ShoppingCartButton/>
 
                     <Tooltip title="Change theme">
-                        <IconButton onClick={() => setCurrentTheme(prev => !prev)}>
+                        <IconButton onClick={() => Store.lightTheme = !Store.lightTheme}>
                             <img height="44" src={"https://localhost:8000/img/theme/" + theme + ".png"} alt={""}/>
                         </IconButton>
                     </Tooltip>
@@ -112,9 +113,9 @@ const Navbar = () => {
                 </Toolbar>
             </Container>
 
-            <LogInPopUs/>
-        </AppBar>
 
+        </AppBar>
+        </React.Fragment>
 
     );
 };
