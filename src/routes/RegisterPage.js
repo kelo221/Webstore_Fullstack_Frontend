@@ -1,10 +1,10 @@
-import {Button, Grid, TextField} from "@material-ui/core";
 import React, {useState} from "react";
 import Box from "@mui/material/Box";
-import AlertBox from "../components/alerts/AlertBox";
 import requests from "../components/services/requests";
 import Store from "../components/Store/Store";
 import {useSnapshot} from "valtio";
+import {TextField} from "@mui/material";
+import Grid from "@mui/material/Grid";
 
 const RegisterPage = () => {
 

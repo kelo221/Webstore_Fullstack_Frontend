@@ -65,7 +65,7 @@ const UserButton = () => {
                             Store.settingsVisibility = (!snap.settingsVisibility)
                         }
                         }>
-                            <Avatar src={"https://127.0.0.1:8000/img/users/noImage.jpg"}/>
+                            <Avatar src={"http://127.0.0.1:8000/img/users/noImage.jpg"}/>
                         </IconButton>
                     </Tooltip>
                 </div>
@@ -79,7 +79,7 @@ const UserButton = () => {
             <div>
                 <Tooltip title="Profile">
                     <IconButton sx={{p: 0}} onClick={handleClick}>
-                        <Avatar src={"https://127.0.0.1:8000/" + snap.userInfo.Avatar}/>
+                        <Avatar src={"http://127.0.0.1:8000" + snap.userInfo.Avatar}/>
                     </IconButton>
                 </Tooltip>
 

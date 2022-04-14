@@ -1,9 +1,4 @@
 import React, {useState} from 'react';
-import {
-    Grid,
-    TextField,
-    Button
-} from '@material-ui/core';
 import Box from "@mui/material/Box";
 import {useNavigate} from "react-router-dom";
 import requests from "./services/requests";
@@ -11,6 +6,8 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from '@mui/icons-material/Close';
 import {useSnapshot} from "valtio";
 import Store from "./Store/Store";
+import Grid from "@mui/material/Grid";
+import {TextField} from "@mui/material";
 
 
 const LogInPopUs = () => {

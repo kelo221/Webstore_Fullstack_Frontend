@@ -102,7 +102,7 @@ const Navbar = () => {
 
                     <Tooltip title="Change theme">
                         <IconButton onClick={() => Store.lightTheme = !Store.lightTheme}>
-                            <img height="44" src={"https://localhost:8000/img/theme/" + theme + ".png"} alt={""}/>
+                            <img height="44" src={"http://localhost:8000/img/theme/" + theme + ".png"} alt={""}/>
                         </IconButton>
                     </Tooltip>
 

@@ -23,7 +23,7 @@ const ShoppingCartIcon = () => {
                     transform: "translate(-50%, -50%)",
                     color: "white",
                 }}>{snap.shoppingCart.OrderItem.length}</p>
-                <img height="40" src={"https://localhost:8000/img/etc/shoppingCart.png"} alt={""}/>
+                <img height="40" src={"http://localhost:8000/img/etc/shoppingCart.png"} alt={""}/>
             </div>
 
         </>

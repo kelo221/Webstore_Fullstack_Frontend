@@ -1,13 +1,11 @@
 import './App.css';
 import NavBar from "./components/NavBar";
-import Product from "./components/Product";
 import Box from "@mui/material/Box";
 import * as React from "react";
 import {ThemeProvider} from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import {useEffect} from "react";
 import requests from "./components/services/requests";
-import {Pagination} from "@mui/material";
 
 import {Route, Routes, useLocation} from 'react-router-dom'
 
@@ -19,17 +17,10 @@ import Themes from "./themes/Themes"
 import {useSnapshot} from "valtio";
 import AlertBox from "./components/alerts/AlertBox";
 import ProductsPage from "./routes/ProductsPage";
-import RegisterPageAlt from "./routes/RegisterPageAlt";
 
 function App() {
 
     const location = useLocation()
-
-/*  const [usingLightTheme, setTheme]   = useAtom(Atoms.lightTheme);
-    const [products, setProducts]       = useAtom(Atoms.products);
-    const [page]                        = useAtom(Atoms.page);
-    const [userInfo, setUserInfo]       = useAtom(Atoms.userInfo);*/
-
     const snap = useSnapshot(Store)
 
 

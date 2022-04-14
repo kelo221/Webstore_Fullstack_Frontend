@@ -35,7 +35,7 @@ const ShoppingCartItem = () => {
             <React.Fragment key={index}>
                 <MenuItem>
                     <ListItemIcon sx={{ m: 1 }}>
-                        <img src={'https://127.0.0.1:8000/' + snap.shoppingCart.OrderItem[arrayIndex].Image}  width="25" />
+                        <img src={'http://127.0.0.1:8000/' + snap.shoppingCart.OrderItem[arrayIndex].Image}  width="25" />
                     </ListItemIcon>
                     <ListItemText sx={{ mr: 1 }} >{snap.shoppingCart.OrderItem[arrayIndex].Title}</ListItemText>
                     <ListItemText sx={{ mr: 1 }} >{snap.shoppingCart.OrderItem[arrayIndex].Price}</ListItemText>
