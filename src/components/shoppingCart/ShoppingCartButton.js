@@ -3,11 +3,19 @@ import {Menu, Tooltip} from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import ShoppingCartIcon from "./ShoppingCartIcon";
 import ShoppingCartItem from "./ShoppingCartItem";
+import Button from "@mui/material/Button";
+import {useNavigate} from "react-router-dom";
+import Typography from "@mui/material/Typography";
+import {useSnapshot} from "valtio";
+import Store from "../Store/Store";
 
 
 const ShoppingCartButton = () => {
 
 
+    const snap = useSnapshot(Store)
+
+    const navigate = useNavigate()
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -17,6 +25,11 @@ const ShoppingCartButton = () => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+
+    const navigateToCheckOut = () => {
+        navigate("/checkout")
+    }
 
     return(
 
@@ -37,6 +50,11 @@ const ShoppingCartButton = () => {
             >
                 <ShoppingCartItem/>
 
+                {Store.shoppingCart.OrderItem.length !== 0 && (
+                    <Typography align='center'>
+                        <Button sx={{ m: 1 }} variant="outlined" onClick={()=>navigateToCheckOut()}>Checkout</Button>
+                    </Typography>
+                )}
             </Menu>
         </div>
 

@@ -17,6 +17,7 @@ import Themes from "./themes/Themes"
 import {useSnapshot} from "valtio";
 import AlertBox from "./components/alerts/AlertBox";
 import ProductsPage from "./routes/ProductsPage";
+import CheckOutPage from "./routes/CheckOutPage";
 
 function App() {
 
@@ -24,24 +25,28 @@ function App() {
     const snap = useSnapshot(Store)
 
 
+
+
     useEffect(() => {
 
         requests.getAllProducts("asc", snap.page)
             .then(initialproducts => {
-                if (initialproducts)
+                if (initialproducts) {
                     Store.products = (initialproducts);
+                }
             })
-
-    }, [snap.page])
+    }, [Store.page])
 
     useEffect( () =>{
         requests.getUserInfo()
             .then(userData => {
-                if (userData)
+                if (userData){
                     Store.userInfo = (userData)
+                    console.log("test")
+                }
             })
 
-    }, [snap.userInfo])
+    }, [Store.userInfo])
 
     return (
         <ThemeProvider theme={snap.lightTheme ? Themes.ThemeLight : Themes.ThemeDark}>
@@ -60,6 +65,16 @@ function App() {
                             <NavBar/>
                             <AlertBox/>
                             <AboutPage/>
+                        </main>
+                    </Box>
+                }/>
+
+
+                <Route path="checkout" element={
+                    <Box bgcolor="background.main">
+                        <CssBaseline/>
+                        <main>
+                        <CheckOutPage/>
                         </main>
                     </Box>
                 }/>
