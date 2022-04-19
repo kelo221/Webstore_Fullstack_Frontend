@@ -18,11 +18,13 @@ import {useSnapshot} from "valtio";
 import AlertBox from "./components/alerts/AlertBox";
 import ProductsPage from "./routes/ProductsPage";
 import CheckOutPage from "./routes/CheckOutPage";
+import OrdersPage from "./routes/OrdersPage";
 
 function App() {
 
     const location = useLocation()
     const snap = useSnapshot(Store)
+
 
 
 
@@ -42,11 +44,24 @@ function App() {
             .then(userData => {
                 if (userData){
                     Store.userInfo = (userData)
-                    console.log("test")
+                    Store.shoppingCart.UserId = userData._Id
                 }
             })
 
     }, [Store.userInfo])
+
+    useEffect( () =>{
+        requests.GetUserOrders()
+            .then(userData => {
+                if (userData){
+                    Store.orders = (userData)
+                }
+            })
+
+    }, [Store.orders])
+
+
+
 
     return (
         <ThemeProvider theme={snap.lightTheme ? Themes.ThemeLight : Themes.ThemeDark}>
@@ -86,6 +101,17 @@ function App() {
                             <NavBar/>
                             <AlertBox/>
                             <RegisterPage/>
+                        </main>
+                    </Box>
+                }/>
+
+
+                <Route path="orders" element={
+                    <Box bgcolor="background.main">
+                        <CssBaseline/>
+                        <main>
+                            <NavBar/>
+                            <OrdersPage/>
                         </main>
                     </Box>
                 }/>

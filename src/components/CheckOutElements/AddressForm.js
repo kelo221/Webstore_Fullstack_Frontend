@@ -56,6 +56,7 @@ export default function AddressForm() {
                 <Grid item xs={12} sm={6}>
                     <TextField
                         required
+                        onChange={(event) => handleTextInputChange(event, "City")}
                         id="city"
                         name="city"
                         label="City"
@@ -66,15 +67,7 @@ export default function AddressForm() {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
-                        id="state"
-                        name="state"
-                        label="State/Province/Region"
-                        fullWidth
-                        variant="standard"
-                    />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                    <TextField
+                        onChange={(event) => handleTextInputChange(event, "Zip")}
                         required
                         id="zip"
                         name="zip"
@@ -87,6 +80,7 @@ export default function AddressForm() {
                 <Grid item xs={12} sm={6}>
                     <TextField
                         required
+                        onChange={(event) => handleTextInputChange(event, "Country")}
                         id="country"
                         name="country"
                         label="Country"

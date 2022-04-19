@@ -13,6 +13,9 @@ import Box from "@mui/material/Box";
 import {useNavigate} from "react-router-dom";
 import {useSnapshot} from "valtio";
 import Store from "../components/Store/Store";
+import Grid from "@mui/material/Grid";
+import requests from "../components/services/requests";
+import {logDOM} from "@testing-library/react";
 
 const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
@@ -32,7 +35,6 @@ function getStepContent(step) {
 
 const CheckOutPage = () => {
     const [activeStep, setActiveStep] = React.useState(0);
-
     const navigate = useNavigate()
 
     const handleNext = () => {
@@ -49,7 +51,10 @@ const CheckOutPage = () => {
 
     const snap = useSnapshot(Store)
 
-    if (activeStep === steps.length) {
+    if (activeStep === steps.length && Store.shoppingCart.OrderItem.length !==0) {
+        console.log(Store.shoppingCart.OrderItem[0])
+        const ProxyConverted = JSON.parse(JSON.stringify(snap.shoppingCart))
+        requests.SendOrder(ProxyConverted).then(r => console.log(r))
         Store.shoppingCart.OrderItem.length = 0
     }
 
@@ -74,10 +79,16 @@ const CheckOutPage = () => {
                                 Thank you for your order.
                             </Typography>
                             <Typography variant="subtitle1">
-                                Your order number is #{snap.shoppingCart.TransactionId}. We have emailed your order
-                                confirmation, and will send you an update when your order has
-                                shipped.
+                                Your order has been sent!
+                                You may see the status of your order on your profile if you were logged in.
                             </Typography>
+
+                            <Typography align='center'>
+                                <Button variant="outlined" onClick={navToMain} sx={{mt: 3, ml: 1}}>Return</Button>
+                            </Typography>
+
+
+
                         </React.Fragment>
                     ) : (
                         <React.Fragment>

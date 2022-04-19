@@ -30,6 +30,14 @@ const Login = async (email, password) => {
     return request.then(response => response.data)
 }
 
+const GetUserOrders = () => {
+    const request = axios.get(`${baseUrl}user/orders`)
+    return request.then(response => response.data).catch(error => {
+        return null
+    })
+}
+
+
 
 const LogOut = () => {
 
@@ -59,14 +67,9 @@ const update = (id, newObject) => {
     return request.then(response => response.data)
 }
 
-const register = (id, newObject) => {
-    const request = axios.put(axios.get(`${baseUrl}user/register`))
-    return request.then(response => response.data)
-}
-
-
-const del = (id) => {
-    const request = axios.delete(`${baseUrl}/${id}`)
+const SendOrder = (orderObject) => {
+    console.log(orderObject)
+    const request = axios.put(`${baseUrl}checkout/orders`, orderObject)
     return request.then(response => response.data)
 }
 
@@ -75,11 +78,12 @@ const functions = {
     getAllProducts,
     create,
     update,
-    del,
+    GetUserOrders,
     getUserInfo,
     Login,
     Register,
     LogOut,
+    SendOrder,
 };
 
 export default functions;

@@ -32,13 +32,10 @@ const ShoppingCartItem = () => {
 
 
     return (
-        Object.keys(snap.shoppingCart.OrderItem).map((arrayIndex, index) => (
-            <React.Fragment key={index}>
+        Object.keys(snap.shoppingCart.OrderItem).map((arrayIndex) => (
+            <React.Fragment key={arrayIndex}>
                 <MenuItem>
                     <ListItemIcon sx={{ m: 1 }}>
-
-
-
                         <img src={'http://127.0.0.1:8000/' + snap.shoppingCart.OrderItem[arrayIndex].Image}  width="25" />
                     </ListItemIcon>
                     <ListItemText sx={{ mr: 1 }} >{snap.shoppingCart.OrderItem[arrayIndex].Title}</ListItemText>

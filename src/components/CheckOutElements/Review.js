@@ -6,10 +6,6 @@ import ListItemText from '@mui/material/ListItemText';
 import Grid from '@mui/material/Grid';
 import {useSnapshot} from "valtio";
 import Store from "../Store/Store";
-import {ListItemIcon, MenuItem} from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
-
 
 const addresses = ['1 MUI Drive', 'Reactville', 'Anytown', '99999', 'USA'];
 const payments = [

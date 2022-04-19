@@ -6,10 +6,13 @@ import Avatar from "@mui/material/Avatar";
 import requests from "./services/requests";
 import {useSnapshot} from "valtio";
 import Store from "./Store/Store";
+import {useNavigate} from "react-router-dom";
 
 
 const UserButton = () => {
 
+
+    const navigate = useNavigate()
     const snap = useSnapshot(Store)
 
     const STATES = Object.freeze({
@@ -30,6 +33,7 @@ const UserButton = () => {
 
         if (who === STATES.ORDERS) {
             console.log("orders")
+            navigate("/orders")
         } else if (who === STATES.LOG_OUT) {
             console.log("LOG_OUT")
             requests.LogOut()
