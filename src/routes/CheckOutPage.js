@@ -52,7 +52,6 @@ const CheckOutPage = () => {
     const snap = useSnapshot(Store)
 
     if (activeStep === steps.length && Store.shoppingCart.OrderItem.length !==0) {
-        console.log(Store.shoppingCart.OrderItem[0])
         const ProxyConverted = JSON.parse(JSON.stringify(snap.shoppingCart))
         requests.SendOrder(ProxyConverted).then(r => console.log(r))
         Store.shoppingCart.OrderItem.length = 0

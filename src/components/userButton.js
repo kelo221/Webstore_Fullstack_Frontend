@@ -60,7 +60,8 @@ const UserButton = () => {
         setAnchorEl(null);
     }
 
-    if (snap.userInfo._Id === null) {
+
+    if (snap.userInfo._Id === null || snap.userInfo._Id === undefined) {
         return (
             <React.Fragment>
                 <div>
@@ -76,7 +77,6 @@ const UserButton = () => {
             </React.Fragment>
         )
     }
-
 
     return (
         <React.Fragment>
