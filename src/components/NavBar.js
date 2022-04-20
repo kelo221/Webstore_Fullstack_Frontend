@@ -40,6 +40,7 @@ const Navbar = () => {
 
 
     const handleOpenNavMenu = (page) => {
+        console.log(page)
         if (page === "Products") {
             navigate("/")
         } else if (page === "About") {
@@ -55,39 +56,19 @@ const Navbar = () => {
             <LogInPopUs/>
         <AppBar position="static">
             <Container maxWidth="xl">
-                <Toolbar disableGutters>
+                <Toolbar>
                     <Typography
                         variant="h6"
                         noWrap
                         component="div"
-                        sx={{mr: 2, display: {xs: 'none', md: 'flex'}}}
+                        sx={{}}
                     >
-                        LOGO
+                        <img style={{height:'50px'}} src={"http://localhost:8000/img/etc/logo.png"}  alt={"logo"}/>
                     </Typography>
 
-                    <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
 
-                        <IconButton
-                            size="large"
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleOpenNavMenu}
-                            color="inherit"
-                        >
-                            <MenuIcon/>
-                        </IconButton>
-                    </Box>
 
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}
-                    >
-                        LOGO
-                    </Typography>
-                    <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
+                    <Box sx={{flexGrow: 1, display: { xs: 'flex'}}}>
                         {pages.map((page) => (
                             <Button
                                 key={page}

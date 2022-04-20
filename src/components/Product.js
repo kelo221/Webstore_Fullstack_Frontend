@@ -32,18 +32,16 @@ export default function Product({products}) {
 
     return (
         <Container sx={{py: 8}} maxWidth="md">
-            {/* End hero unit */}
             <Grid container spacing={4}>
                 {products.map((product) => (
                     <Grid item key={product._Id} xs={12} sm={6} md={4}>
-                        <Card sx={{height: 430, bgcolor: 'action.main'}}>
+                        <Card sx={{ bgcolor: 'action.main'}}>
                             <CardMedia
                                 component="img"
                                 alt={product.Title}
                                 image={'http://127.0.0.1:8000/' + product.Image}
                                 justify-content="center"
-                                width='20vw'
-                                height='300vh'
+                                width='5vw'
                                 sx={{ p: 1 }}
                             />
                             <CardContent>
