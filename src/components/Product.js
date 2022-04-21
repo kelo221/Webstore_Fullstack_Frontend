@@ -60,7 +60,7 @@ export default function Product({products}) {
 
 
                             <CardActions>
-                                <Button size="small" onClick={() => openDetails(product)}>Details</Button>
+                               {/* <Button size="small" onClick={() => openDetails(product)}>Details</Button>*/}
                                 <Button size="small" onClick={() => addToCart(product)}>Add to cart</Button>
                             </CardActions>
                         </Card>
