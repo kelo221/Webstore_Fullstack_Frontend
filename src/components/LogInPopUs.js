@@ -8,6 +8,7 @@ import {useSnapshot} from "valtio";
 import Store from "./Store/Store";
 import Grid from "@mui/material/Grid";
 import {TextField} from "@mui/material";
+import Button from "@mui/material/Button";
 
 
 const LogInPopUs = () => {
@@ -53,6 +54,7 @@ const LogInPopUs = () => {
         navigate("/register")
     }
 
+
     return (
         <React.Fragment>
 
@@ -89,31 +91,32 @@ const LogInPopUs = () => {
 
                             <Grid item xl={"auto"} md={"auto"} sm={"auto"} xs={"auto"}>
                                 <TextField
-                                    id="outlined-email-input"
                                     label="Email"
                                     name="email"
+                                    size="small"
                                     fullWidth
                                     onChange={e => setEmail(e.target.value)}
                                 />
                             </Grid>
                             <Grid item xl={"auto"} md={"auto"} sm={"auto"} xs={"auto"}>
                                 <TextField
-                                    id="outlined-password-input"
                                     label="Password"
                                     name="password"
+                                    type="password"
+                                    size="small"
                                     fullWidth
                                     onChange={e => setPassword(e.target.value)}
-                                    style={{padding:"4px"}}
                                 />
                             </Grid>
 
                             <Grid item xl={"auto"} md={"auto"} sm={"auto"} xs={"auto"}>
-                                <button type="submit"> Sign in</button>
+                                <Button style={{margin: "5px"}} variant="outlined" type="submit"> Sign in</Button>
                             </Grid>
 
                             <Grid item xl={"auto"} md={"auto"} sm={"auto"} xs={"auto"}>
-                                <button type="submit" onClick={(e) => navigateToRegister(e)}> Register</button>
+                                <Button style={{margin: "5px"}} variant="outlined" type="submit" onClick={(e) => navigateToRegister(e)}> Register</Button>
                             </Grid>
+
                         </form>
                     </main>
                 </Grid>

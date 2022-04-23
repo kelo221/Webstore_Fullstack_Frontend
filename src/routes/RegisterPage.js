@@ -5,6 +5,8 @@ import Store from "../components/Store/Store";
 import {useSnapshot} from "valtio";
 import {TextField} from "@mui/material";
 import Grid from "@mui/material/Grid";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
 const RegisterPage = () => {
 
@@ -36,23 +38,27 @@ const RegisterPage = () => {
         <React.Fragment>
 
 
-            <Box bgcolor="secondary.main" style={{
+            <Box bgcolor="secondary.main"
+                 style={{
                 textAlign: "center",
                 justifyContent: "center",
+
             }}>
 
 
-                <Grid container
-                      spacing={0}
-                      direction="column"
-                      alignItems="center"
-                      justifyContent="center">
+                <Grid
+                    container
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                    justify="center"
+                >
                     <main className="form-signin">
                         <form onSubmit={submit}>
 
-                            <Grid item xl={"auto"} md={"auto"} sm={"auto"} xs={"auto"}>
+                            <Grid item xl={"auto"} md={"auto"} sm={"auto"} xs={"auto"}
+                                  sx={{ mt: 4}}>
                                 <TextField
-                                    id="outlined-email-input"
                                     label="Email"
                                     name="email"
                                     fullWidth
@@ -61,7 +67,7 @@ const RegisterPage = () => {
                             </Grid>
                             <Grid item xl={"auto"} md={"auto"} sm={"auto"} xs={"auto"}>
                                 <TextField
-                                    id="outlined-password-input"
+                                    style= {{textAlign: 'center'} }
                                     label="Password"
                                     name="password"
                                     fullWidth
@@ -72,20 +78,19 @@ const RegisterPage = () => {
                             <Grid item xl={"auto"} md={"auto"} sm={"auto"} xs={"auto"}>
 
                                 <TextField
-                                    id="outlined-password-input"
-                                    label="Password"
+                                    label="Password Confirm"
                                     name="password"
                                     fullWidth
                                     onChange={e => setPasswordConfirm(e.target.value)}
                                 />
 
+
+                                <Grid item xl={"auto"} md={"auto"} sm={"auto"} xs={"auto"}  sx={{ m: 2}}>
+
+                                <Button type="submit" style={{margin:"4px"}}  variant="outlined"  onClick={(e) => submit(e)}>
+                                    Register</Button>
+                                </Grid>
                             </Grid>
-
-
-                                <button type="submit"   onClick={(e) => submit(e)}>
-                                    Register</button>
-
-
 
 
                         </form>

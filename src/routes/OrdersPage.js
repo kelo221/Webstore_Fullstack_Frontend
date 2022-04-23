@@ -1,7 +1,5 @@
 import React from 'react';
 import {
-    ListItemIcon, ListItemText,
-    MenuItem,
     Table,
     TableBody,
     TableCell,
@@ -11,30 +9,29 @@ import {
 import {useSnapshot} from "valtio";
 import Store from "../components/Store/Store";
 import Paper from "@mui/material/Paper";
-import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Delete";
-import {logDOM} from "@testing-library/react";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-
-
-function CommentIcon() {
-    return null;
-}
 
 const OrdersPage = () => {
 
     const snap = useSnapshot(Store)
 
     const ProxyConverted = JSON.parse(JSON.stringify(snap.orders))
+
     console.log(ProxyConverted)
 
-    if (ProxyConverted === undefined) {
-        return null
+
+
+    if (ProxyConverted.length === undefined) {
+        return <Box>
+            <Grid container justifyContent="center">
+            <h1>No orders</h1>
+            </Grid>
+        </Box>
     }
 
     const listItems = Object.keys(ProxyConverted).map((number) =>
-        <React.Fragment>
+        <React.Fragment key={number}>
             <Grid container justifyContent="center">
             <Box sx={{ textAlign: 'center', m: 10, maxWidth: "700px" }} bgcolor="action.main">
 
@@ -51,12 +48,12 @@ const OrdersPage = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {ProxyConverted[number].OrderItem.map((row) => (
+                        {ProxyConverted[number].OrderItem.map((row,index) => (
                             <TableRow
-                                key={row.name}
+                                key={index}
                             >
                                 <TableCell align="left">{row.Title}</TableCell>
-                                <TableCell align="left">{row.Quantity}</TableCell>
+                                <TableCell align="left">{row.Quantity+1}</TableCell>{/* Currently, the quantity is not implemented*/}
                                 <TableCell align="left">{row.Price}</TableCell>
                             </TableRow>
                         ))}

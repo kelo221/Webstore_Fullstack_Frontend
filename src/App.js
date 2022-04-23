@@ -26,12 +26,8 @@ function App() {
     const snap = useSnapshot(Store)
 
 
-
-
-
     useEffect(() => {
-
-        requests.getAllProducts("asc", snap.page)
+        requests.getAllProducts("asc", Store.page)
             .then(initialproducts => {
                 if (initialproducts) {
                     Store.products = (initialproducts);
@@ -39,28 +35,29 @@ function App() {
             })
     }, [Store.page])
 
-    useEffect( () =>{
-        requests.getUserInfo()
-            .then(userData => {
-                if (userData){
-                    Store.userInfo = (userData)
-                    Store.shoppingCart.UserId = userData._Id
-                }
-            })
+
+    useEffect(() => {
+            requests.getUserInfo()
+                .then(userData => {
+                    if (userData) {
+                        Store.userInfo = (userData)
+                        console.log(userData)
+                        Store.shoppingCart.UserId = userData._Id
+                    }
+                })
 
     }, [Store.userInfo])
 
-    useEffect( () =>{
-        requests.GetUserOrders()
-            .then(userData => {
-                if (userData){
-                    Store.orders = (userData)
-                }
-            })
-
-    }, [Store.orders])
-
-
+    useEffect(() => {
+        if (Store.userInfo.Id !== null) {
+            requests.GetUserOrders()
+                .then(userData => {
+                    if (userData) {
+                        Store.orders = (userData)
+                    }
+                })
+        }
+    }, [Store.userInfo])
 
 
     return (
@@ -70,7 +67,7 @@ function App() {
                 <Route path="*" element={<MissingHandler/>}/>
 
                 <Route path="/" element={
-                   <ProductsPage/>
+                    <ProductsPage/>
                 }/>
 
                 <Route path="about" element={
@@ -89,7 +86,7 @@ function App() {
                     <Box bgcolor="background.main">
                         <CssBaseline/>
                         <main>
-                        <CheckOutPage/>
+                            <CheckOutPage/>
                         </main>
                     </Box>
                 }/>

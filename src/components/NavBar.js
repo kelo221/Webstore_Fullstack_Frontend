@@ -40,7 +40,6 @@ const Navbar = () => {
 
 
     const handleOpenNavMenu = (page) => {
-        console.log(page)
         if (page === "Products") {
             navigate("/")
         } else if (page === "About") {

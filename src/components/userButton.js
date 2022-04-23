@@ -32,10 +32,8 @@ const UserButton = () => {
     const handleClose = (who) => {
 
         if (who === STATES.ORDERS) {
-            console.log("orders")
             navigate("/orders")
         } else if (who === STATES.LOG_OUT) {
-            console.log("LOG_OUT")
             requests.LogOut()
                 .then(r => {
                     Store.setUserInfo = ({
@@ -44,13 +42,12 @@ const UserButton = () => {
                         "_Id": null,
                         "Avatar": "/img/users/noImage.jpg"
                     })
-                    console.log(r.message)
                     Store.alertSeverity = "success"
                     Store.alertStatus = true
                     Store.alertMessage = r.message
+                    window.location.reload();
                 })
                 .catch((e) => {
-                    console.log(e)
                     Store.alertSeverity = "error"
                     Store.alertStatus = true
                     Store.alertMessage = e.response.data.message
@@ -67,7 +64,7 @@ const UserButton = () => {
                 <div>
                     <Tooltip title="Profile">
                         <IconButton sx={{p: 0}} onClick={() => {
-                            Store.settingsVisibility = (!snap.settingsVisibility)
+                            Store.settingsVisibility = (!Store.settingsVisibility)
                         }
                         }>
                             <Avatar src={"http://127.0.0.1:8000/img/users/noImage.jpg"}/>
